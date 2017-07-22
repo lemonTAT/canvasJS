@@ -1,0 +1,12 @@
+{
+  "name": "gulp",
+  "version": "1.0.0",
+  "description": "gulp watch",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-livereload": "*"
+  },
+  "repository": "git@github.com:yorodev/dealersSystem.git",
+  "author": "app@baie.com.cn",
+  "license": "ISC"
+}

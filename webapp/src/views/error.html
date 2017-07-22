@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>Tittle</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" >
+    <meta name="format-detection" content="telephone=no">
+    <!--ios web clip-->
+    <link rel="apple-touch-icon" href="//static.yoro.com/assets/images/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="//static.yoro.com/assets/images/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="//static.yoro.com/assets/images/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="//static.yoro.com/assets/images/touch-icon-ipad-retina.png">
+
+    <link rel="icon" href="/assets/static/favicon.ico">
+    <link rel="shortcut icon" href="/assets/static/favicon.ico">
+
+    <link rel="dns-prefetch" href="//cdn.yoro.com">
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <h1>{{ errors.status }}</h1>
+    <div>
+        {% if errors.status === 400  %}
+            无效请求
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+/**
+ * baie-limited-width:固定宽度，居中 
+ */
+html
+{
+    background: #f3f4f6;
+}
+
+
+.clearfix::after,
+.clearfix::before
+{
+    display: table;
+    clear: both;
+
+    content: ' ';
+}
+
+.baie-limited-width
+{
+    min-width: 320px;
+    max-width: 640px;
+    margin-right: auto;
+    margin-left: auto;
+}
