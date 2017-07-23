@@ -26,7 +26,7 @@ ul,li{
     border-radius: 50%;
 }
 
-.tools > li > img{
+.tools > li img{
     width: 100%;
 }
 
@@ -37,10 +37,5 @@ body .main-containner{
 
 .main-containner>h1{
     text-align: center;
-}
-
-#canvasTag{
-    width: 100%;
-    height: 4rem;
 }
 /* 设置画板样式End */
