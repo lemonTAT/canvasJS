@@ -1,0 +1,46 @@
+/* 设置画板样式Start */
+body{
+    max-width: 7.5rem;
+    margin: 0 auto;
+}
+
+h1,h2,h3,h4,h5,h6,p,input,ul,li,ol{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul,li{
+    list-style: none;
+}
+
+.tools:after{
+    content:'';
+    display: table;
+    clear: both;
+}
+
+.tools > li {
+    float: left;
+    width: 20%;
+    border-radius: 50%;
+}
+
+.tools > li > img{
+    width: 100%;
+}
+
+body .main-containner{
+    background-color: #f3f4f6;
+    padding: .3rem; 
+}
+
+.main-containner>h1{
+    text-align: center;
+}
+
+#canvasTag{
+    width: 100%;
+    height: 4rem;
+}
+/* 设置画板样式End */
