@@ -1,0 +1,98 @@
+/* canvas画板 Start */
+
+.main
+{
+    width: 80%;
+    margin: 0 auto;
+}
+.tools-bar
+{
+    overflow: hidden;
+
+    padding: 10px;
+
+    list-style: none;
+
+    text-align: center;
+
+    border-radius: 10px;
+    background-color: #dce6f4;
+}
+
+.tools-bar > li
+{
+    float: left;
+
+    box-sizing: border-box;
+    width: 25%;
+    height: 200px;
+
+    color: #738399;
+}
+
+.tools-bar > li ~ li
+{
+    border-left: 1px solid #fff;
+}
+
+.tools-bar > li a
+{
+    display: inline-block;
+
+    margin-top: 5px;
+    padding: 8px 25px;
+
+    text-decoration: none;
+
+    color: #fff;
+    border-radius: 5px;
+}
+
+.tools-bar > li.draw-tools a
+{
+    background-color: #de5145;
+}
+
+.tools-bar > li.line-shape a
+{
+    background-color: #19a15f;
+}
+
+.tools-bar > li.line-size > div
+{
+    padding: 20px 0;
+}
+
+.tools-bar > li.line-size > .thin
+{
+    padding-top: 40px;
+}
+
+.tools-bar > li.line-size > div > div
+{
+    width: 70%;
+    height: 10px;
+    margin: 0 auto;
+
+    background-color: #000;
+}
+
+.tools-bar > li.line-size .thin > div
+{
+    height: 1px;
+}
+
+.tools-bar > li.line-size .middle > div
+{
+    height: 5px;
+}
+
+#canvas
+{
+    width: 100%;
+    height: 90%;
+
+    border: 1px solid #e4e4e4;
+    border-radius: 10px;
+}
+/* canvas画板 End */

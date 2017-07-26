@@ -1,6 +1,3 @@
-/**
- * Created by 张雅鹏 on 2016/11/8.
- */
 function Draw(obj,setting){
     this.obj=obj;
     this.type=setting.type||"stroke";
