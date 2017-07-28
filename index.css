@@ -87,6 +87,16 @@
     height: 5px;
 }
 
+.tools-bar .color-choice{
+    margin-top: 40px;
+}
+
+.tools-bar .color-choice>span{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
 #canvas
 {
     width: 100%;
