@@ -2,7 +2,7 @@
 
 .main
 {
-    width: 80%;
+    width: 1200px;
     margin: 0 auto;
 }
 .tools-bar
@@ -24,7 +24,7 @@
     float: left;
 
     box-sizing: border-box;
-    width: 25%;
+    width: 33%;
     height: 200px;
 
     color: #738399;
@@ -87,6 +87,10 @@
     height: 5px;
 }
 
+.tools-bar > li.line-size .line-width{
+    width: 150px;
+}
+
 .tools-bar .color-choice{
     margin-top: 40px;
 }
@@ -99,9 +103,6 @@
 
 #canvas
 {
-    width: 100%;
-    height: 90%;
-
     border: 1px solid #e4e4e4;
     border-radius: 10px;
 }
