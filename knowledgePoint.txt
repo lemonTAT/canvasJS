@@ -1,0 +1,124 @@
+https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
+
+一、canvas基本用法
+    1、<canvas> 标签只有两个属性—— width和height。当没有设置宽度和高度的时候，canvas会初始化宽度为300像素和高度为150像素。该元素可以使用CSS来定义大小，但在绘制时图像会伸缩以适应它的框架尺寸：如果CSS的尺寸与初始画布的比例不一致，它会出现扭曲。
+
+        注意: 如果你绘制出来的图像是扭曲的, 尝试在<canvas>的属性中明确规定宽和高，而不是使用CSS。
+
+    2、由于某些较老的浏览器（尤其是IE9之前的IE浏览器）或者文本浏览器不支持HTML元素"canvas"，在这些浏览器上你应该总是能展示替代内容。
+
+        /* 解决IE浏览器不支持html5 canvas：通过excanvas.js专门为IE扩展的canvas元素包中提供的处理方法initElement进行相应的判断处理 */
+
+        ①、先下载并引用excanvas.js，
+        ②、在页面中定义div作为canvas容器，、
+        ③、在Js中生成canvas元素：
+            canvas = document.createElement('canvas'); 
+        ④、将生成的canvas元素放入div容器中：
+            canvasDiv.appendChild(canvas);
+        ⑤、进行判断处理
+            if (typeof G_vmlCanvasManager != 'undefined') {
+                canvas = G_vmlCanvasManager.initElement(canvas);
+            }
+        ⑥、调用canvas上下文
+            context = canvas.getContext("2d");
+
+    3、canvas起初是空白的。为了展示，首先脚本需要找到渲染上下文，然后在它的上面绘制。
+        ctx = canvas.getContext('2d');
+
+        jQuery()返回的是jQuery对象，而jQuery对象是没有getContext方法的，需要把jQuery对象转换成Dom对象，官方文档推荐的方法如上述代码，其实jQuery对象就是类数组，用数组下标可以取得Dom对象。
+
+二、使用canvas绘制图形：不同于SVG（XML绘图），HTML中的元素canvas只支持一种原生的图形绘制
+    1、画布栅格
+        栅格的起点为左上角（坐标为（0,0））。所有元素的位置都相对于原点定位
+
+    2、绘制矩形
+        x与y指定了在canvas画布上所绘制的矩形的左上角（相对于原点）的坐标。width和height设置矩形的尺寸。
+
+        ①、绘制填充矩形
+            fillRect(x, y, width, height)
+        ②、绘制矩形边框
+            strokeRect(x, y, width, height)
+        ③、清除制定矩形区域，让清除部分完全透明
+            clearRect(x, y, width, height)
+
+    3、绘制路径
+        首先，你需要创建路径起始点。
+        然后你使用画图命令去画出路径。
+        之后你把路径封闭。
+        一旦路径生成，你就能通过描边或填充路径区域来渲染图形
+
+        ①、新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径。指定起始点。
+            beginPath()  moveTo(x,y)
+        ②、闭合路径之后图形绘制命令又重新指向到上下文中。
+            closePath()
+        ③、通过线条来绘制图形轮廓。
+            stroke()
+        ④、通过填充路径的内容区域生成实心的图形，路径自动闭合，可以不使用closePath()方法。
+            fill()
+
+        * 绘制弧形或圆
+            ctx.arc(x,y,r,start,end,direction);
+
+            x,y 圆心位置
+            r 绘制圆、弧半径
+            start 起始角，以弧度计（弧的圆形的三点钟位置是 0 度）。
+            end 结束角，以弧度计。
+            direction 可选。规定绘图方向。False = 顺时针，true = 逆时针。
+
+            arcTo(x1, y1, x2, y2, radius)
+            根据给定的控制点和半径画一段圆弧，再以直线连接两个控制点。
+
+        * 绘制直线
+            lineTo(x,y);
+            绘制一条从当前位置到指定x,y位置的直线。
+
+        * 矩形
+
+
+        * 二次贝赛尔曲线 & 三次贝塞尔曲线
+            绘制二次贝塞尔曲线，cp1x,cp1y为一个控制点，x,y为结束点。
+                quadraticCurveTo(cp1x, cp1y, x, y)
+
+            绘制三次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。
+                bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
+
+三、使用样式和颜色
+    1、色彩Colors
+        设置图形的填充颜色。
+            ctx.fillStyle = color
+        设置图形轮廓的颜色。
+            ctx.strokeStyle = color
+    2、设置半透明度
+        ctx.globalAlpha = num;
+    3、线型line-style
+        设置线条宽度。
+            lineWidth = value
+        设置线条末端样式： butt，round 和 square。
+            lineCap = type
+        设定线条与线条间接合处的样式：round, bevel 和 miter。
+            lineJoin = type
+        限制当两条线相交时交接处最大长度；所谓交接处长度（斜接长度）是指线条交接处内角顶点到外角顶点的长度。
+            miterLimit = value
+        返回一个包含当前虚线样式，长度为非负偶数的数组。
+            getLineDash()
+        设置当前虚线样式。
+            setLineDash(segments)
+        设置虚线样式的起始偏移量。
+            lineDashOffset = value
+    4、渐变色
+        createLinearGradient 方法接受 4 个参数，表示渐变的起点 (x1,y1) 与终点 (x2,y2)。
+            ctx.createLinearGradient(x1, y1, x2, y2)
+
+        createRadialGradient 方法接受 6 个参数，前三个定义一个以 (x1,y1) 为原点，半径为 r1 的圆，后三个参数则定义另一个以 (x2,y2) 为原点，半径为 r2 的圆
+            ctx.createRadialGradient(x1, y1, r1, x2, y2, r2)
+    5、绘制文本
+        在指定的(x,y)位置填充指定的文本，绘制的最大宽度是可选的.
+            ctx.fillText(text, x, y [, maxWidth])
+        在指定的(x,y)位置绘制文本边框，绘制的最大宽度是可选的.
+            ctx.strokeText(text, x, y [, maxWidth])
+
+
+
+
+
+

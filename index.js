@@ -10,8 +10,10 @@ $(function() {
         curTool = "pencil", //默认工具
         crayonTextureImage = new Image(), //新建图片对象
         paint, //设置绘图标志量，paint为true时，表明当前正在绘制图形，patint为false时，表示鼠标已经松开
-        canvasWidth = 1200,
-        canvasHeight = 350, //canvas标签的大小变量
+        screenWidth=document.documentElement.clientWidth,
+        screenHeight=document.documentElement.clientHeight,
+        canvasWidth = screenWidth-40,
+        canvasHeight = screenHeight-200, //canvas标签的大小变量
         canvasDiv = document.getElementById('canvasDiv'), //canvas容器
         canvas = document.createElement('canvas'); //创建了元素canvas
     canvas.setAttribute('width', canvasWidth);
@@ -77,7 +79,7 @@ $(function() {
     }
 
     /* 将已记录的数据点在canvas画布中绘画出来 */
-    function redraw(shape) {
+    function redraw() {
         /* 清空画板，然后重新把所有的点都画过 */
         clearCanvas();
 
@@ -100,7 +102,7 @@ $(function() {
 
         /* 判断是否为蜡笔，制作蜡笔效果 */
         if (curTool == "crayon") {
-            /* 蜡笔效果时，对绘画的效果进行了透明度的处理 */
+            /* 蜡笔效果时，对绘画的效果进行了透明度的处理，并增加蜡笔效果背景图片 */
             context.globalAlpha = 0.4;
             context.drawImage(crayonTextureImage, 0, 0, canvasWidth, canvasHeight);
         }
@@ -141,5 +143,4 @@ $(function() {
         clickColor = new Array();
         clearCanvas();
     });
-
 })

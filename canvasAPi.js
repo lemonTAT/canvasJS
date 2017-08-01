@@ -1,16 +1,20 @@
 /* 构造绘画工具 */
+/* 定义构造函数 */
 function Draw(obj,setting){
     this.obj=obj;
     this.type=setting.type||"stroke";
     this.color=setting.color||"#000";
     this.width=setting.width||"1";
 }
+/* 使用 prototype 属性来向对象添加属性 */
 Draw.prototype={
+    /* 初始化 */
     init:function(){
         this.obj.strokeStyle=this.color;
         this.obj.fillStyle=this.color;
         this.obj.lineWidth=this.width;
     },
+    /* 矩形 */
     rect:function(x,y,x1,y1){
         this.init();
         this.obj.beginPath();
@@ -21,6 +25,7 @@ Draw.prototype={
             this.obj.fill();
         }
     },
+    /* 直线 */
     line:function(x,y,x1,y1){
         this.init();
         this.obj.beginPath();
@@ -28,6 +33,7 @@ Draw.prototype={
         this.obj.lineTo(x1,y1);
         this.obj.stroke();
     },
+    /* 圆形 */
     circle:function(x,y,x1,y1){
         this.init();
         var r=Math.sqrt(Math.pow(x-x1,2)+Math.pow(y-y1,2));
@@ -39,6 +45,7 @@ Draw.prototype={
             this.obj.fill();
         }
     },
+    /* 多边形 */
     poly:function(x,y,x1,y1,n){
         this.init();
         var obj=this.obj;
@@ -62,6 +69,7 @@ Draw.prototype={
         }
         obj.restore();
     },
+    /* 铅笔 */
     pen:function(x,y,x1,y1){
         this.init();
         this.obj.save();
@@ -70,10 +78,12 @@ Draw.prototype={
         this.obj.stroke();
         this.obj.restore();
     },
+    /* 橡皮 */
     eraser:function(x,y,x1,y1){
         this.obj.lineCap="round";
         this.obj.clearRect(x1-5,y1-5,10,10);
     },
+    /* 剪切 */
     cut:function(x,y,x1,y1){
         this.init();
         this.obj.save();
