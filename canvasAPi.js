@@ -45,7 +45,7 @@ Draw.prototype = {
             this.obj.fill();
         }
     },
-    /* 铅笔 */
+    /* 自由曲线 */
     pen: function(x, y, x1, y1) {
         this.init();
         this.obj.save();
@@ -57,24 +57,6 @@ Draw.prototype = {
     /* 橡皮 */
     eraser: function(x, y, x1, y1) {
         this.obj.lineCap = "round";
-        this.obj.clearRect(x1 - 5, y1 - 5, 10, 10);
-    },
-    /* 剪切 */
-    cut: function(x, y, x1, y1) {
-        this.init();
-        this.obj.save();
-        this.obj.setLineDash([4, 2]);
-        this.obj.beginPath();
-        this.obj.lineWidth = 1;
-        this.obj.rect(x, y, x1 - x, y1 - y);
-        this.obj.stroke();
-        this.obj.restore();
-    },
-    /* 自由绘画 */
-    free: function(x, y) {
-        this.init();
-        this.obj.beginPath();
-        this.obj.rect(x, y, 1, 1);
-        this.obj.fill();
+        this.obj.clearRect(x1 - 8, y1 - 8, 16, 16);
     }
 }

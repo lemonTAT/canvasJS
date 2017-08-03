@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>canvas画板</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index_free.css">
 </head>
 
 <body>
@@ -12,29 +12,25 @@
         <ul class="tools-bar">
             <li class="draw-tools">
                 <div>工 具</div>
-                <a class="clearCanvas" data-use="clearCanvas" href="javascript:;">清空画板</a>
+                <a class="crayon" href="javascript:;">蜡 笔</a>
                 <br>
-                <!-- <a class="save" data-use="save" href="javascript:;">保 存</a> -->
-                <div class="style">
-                     <a class="stroke active" data-use="stroke" href="javascript:;">描 边</a>
-                    <br>
-                    <br>
-                    <a class="fill" data-use="fill" href="javascript:;">填 充</a>
-                </div>
+                <a class="pencil" href="javascript:;">铅 笔</a>
+                <br>
+                <a class="eraser" href="javascript:;">橡 皮</a>
+                <br>
+                <a class="clearCanvas" href="javascript:;">清空画板</a>
             </li>
-            <li class="line-shape">
+           <!--  <li class="line-shape">
                 <div>形状</div>
-                <a class="pen active" data-use="pen" href="javascript:;">自 由</a>
+                <a class="free" href="javascript:;">自 由</a>
                 <br>
-                <a class="line" data-use="line" href="javascript:;">直 线</a>
+                <a class="line" href="javascript:;">直 线</a>
                 <br>
-                <a class="circle" data-use="circle" href="javascript:;">圆 形</a>
+                <a class="circle" href="javascript:;">圆 形</a>
                 <br>
-                <a class="rect" data-use="rect" href="javascript:;">矩 形</a>
-                <br>
-                <a class="eraser" data-use="eraser" href="javascript:;">橡 皮</a>
-            </li>
-            <li class="line-size">线宽：
+                <a class="rect" href="javascript:;">矩 形</a>
+            </li> -->
+            <li class="line-size">粗细：
                 <input class="line-width" type="number" maxlength="4" name="lineSize">
                 <div class="size thin" data-size="1">
                     <div></div>
@@ -47,7 +43,7 @@
                 </div>
             </li>
             <li class="line-color">颜色：
-                <input class="input-color" type="color" name="lineColor">
+                <input class="inputColor" type="color" name="lineColor">
                 <div class="color-choice">
                     <span class="#000" style="border:1px solid #000;background-color:#000"></span>
                     <span class="#7f7f7f" style="border:1px solid #000;background-color:#7f7f7f"></span>
@@ -75,7 +71,6 @@
         <!-- canvas容器 -->
         <div id="canvasDiv"></div>
 </body>
-<script src="jquery.min.js"></script>
-<script src="canvasAPI.js"></script>
-<script src="index.js"></script>
+<script src="../jquery.min.js"></script>
+<script src="index_free.js"></script>
 </html>

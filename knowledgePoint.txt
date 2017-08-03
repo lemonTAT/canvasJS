@@ -9,6 +9,8 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
 
         /* 解决IE浏览器不支持html5 canvas：通过excanvas.js专门为IE扩展的canvas元素包中提供的处理方法initElement进行相应的判断处理 */
 
+        /* 他是利用IE支持的VML对象来模拟Canvas的绘图的。ecxcanvas.js首先创建Canvas对象，然后把所有有关Canvas的绘图操作都用相应的VML对象来实现 */
+
         ①、先下载并引用excanvas.js，
         ②、在页面中定义div作为canvas容器，、
         ③、在Js中生成canvas元素：
@@ -27,7 +29,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
 
         jQuery()返回的是jQuery对象，而jQuery对象是没有getContext方法的，需要把jQuery对象转换成Dom对象，官方文档推荐的方法如上述代码，其实jQuery对象就是类数组，用数组下标可以取得Dom对象。
 
-二、使用canvas绘制图形：不同于SVG（XML绘图），HTML中的元素canvas只支持一种原生的图形绘制
+二、使用canvas绘制图形：不同于SVG（XML绘图），HTML中的元素canvas只支持一种原生JS的图形绘制
     1、画布栅格
         栅格的起点为左上角（坐标为（0,0））。所有元素的位置都相对于原点定位
 
@@ -72,9 +74,6 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
             lineTo(x,y);
             绘制一条从当前位置到指定x,y位置的直线。
 
-        * 矩形
-
-
         * 二次贝赛尔曲线 & 三次贝塞尔曲线
             绘制二次贝塞尔曲线，cp1x,cp1y为一个控制点，x,y为结束点。
                 quadraticCurveTo(cp1x, cp1y, x, y)
@@ -116,6 +115,34 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
             ctx.fillText(text, x, y [, maxWidth])
         在指定的(x,y)位置绘制文本边框，绘制的最大宽度是可选的.
             ctx.strokeText(text, x, y [, maxWidth])
+    6、绘制图片
+        drawImage(image, x, y, width, height);
+
+        创建图片：var img = new Image();
+        设置图片路径： img.src = 'imgUrl';
+
+        function draw() {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            var img = new Image();
+            img.onload = function(){//保证在加载图片时已经绘制图片容器
+              ctx.drawImage(img,0,0);
+              ctx.beginPath();
+              ctx.moveTo(30,96);
+              ctx.lineTo(70,66);
+              ctx.lineTo(103,76);
+              ctx.lineTo(170,15);
+              ctx.stroke();
+            }
+            img.src = 'images/backdrop.png';
+          }
+
+四、变形
+    1、状态保存和恢复
+        save();  restore();
+        用来保存和恢复 canvas 状态的，都没有参数。Canvas 的状态就是当前画面应用的所有样式和变形的一个快照。
+        入栈 and 出栈
+    2、移动原点
+        translate(x, y); 将原点移动到x、y位置
 
 
 

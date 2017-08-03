@@ -1,4 +1,5 @@
- /*canvas画板 Start */
+ canvas画板 Start */
+
 .main
 {
     width: 1200px;
@@ -23,8 +24,9 @@
     float: left;
 
     box-sizing: border-box;
-    width: 25%;
-    height: 230px;
+    // width: 25%;
+    width: 33%;
+    height: 200px;
 
     color: #738399;
 }
@@ -52,44 +54,9 @@
     background-color: #de5145;
 }
 
-.tools-bar > li.draw-tools a.fill
-{
-    display: none;
-}
-
-.tools-bar > li.draw-tools a.active
-{
-    color: #de5145;
-    background-color: #fff;
-}
-
-.tools-bar > li.draw-tools a.active:hover{
-    background-color: #e4e4e4;
-}
-
-.tools-bar > li.draw-tools a:hover
-{
-    background-color: #de5f46;
-}
-
 .tools-bar > li.line-shape a
 {
     background-color: #19a15f;
-}
-
-.tools-bar > li.line-shape a.active
-{
-    color: #19a15f;
-    background-color: #fff;
-}
-
-.tools-bar > li.line-shape a.active:hover{
-    background-color: #e4e4e4;   
-}
-
-.tools-bar > li.line-shape a:hover
-{
-    background-color: #1ca22e;
 }
 
 .tools-bar > li.line-size > div
@@ -121,20 +88,16 @@
     height: 5px;
 }
 
-.tools-bar > li.line-size .line-width
-{
+.tools-bar > li.line-size .line-width{
     width: 150px;
 }
 
-.tools-bar .color-choice
-{
+.tools-bar .color-choice{
     margin-top: 40px;
 }
 
-.tools-bar .color-choice > span
-{
+.tools-bar .color-choice>span{
     display: inline-block;
-
     width: 20px;
     height: 20px;
 }
@@ -144,4 +107,4 @@
     border: 1px solid #e4e4e4;
     border-radius: 10px;
 }
-/* canvas画板 End */
+/* canvas画板 End 

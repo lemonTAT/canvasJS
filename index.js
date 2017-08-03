@@ -1,27 +1,20 @@
 $(function() {
-    var clickX = new Array(), //绘画x轴数据点
-        clickY = new Array(), //绘画y轴数据点
-        clickDrag = new Array(), //判断是否鼠标松开的标志 
-        clickColor = new Array(), //修改绘图颜色
-        currentColor = '#000', //默认画笔颜色为黑色
-        clickSize = new Array(), //修改绘图画笔粗细
-        size = 1, //线条默认size = 1
-        clickTool = new Array(), //工具
-        curTool = "pencil", //默认工具
-        crayonTextureImage = new Image(), //新建图片对象
-        paint, //设置绘图标志量，paint为true时，表明当前正在绘制图形，patint为false时，表示鼠标已经松开
-        screenWidth=document.documentElement.clientWidth,
-        screenHeight=document.documentElement.clientHeight,
-        canvasWidth = screenWidth-40,
-        canvasHeight = screenHeight-200, //canvas标签的大小变量
+    var screenWidth = document.documentElement.clientWidth,
+        screenHeight = document.documentElement.clientHeight,
+        canvasWidth = screenWidth - 40,
+        canvasHeight = screenHeight - 200, //canvas标签的大小变量
         canvasDiv = document.getElementById('canvasDiv'), //canvas容器
-        canvas = document.createElement('canvas'); //创建了元素canvas
+        canvas = document.createElement('canvas'), //创建了元素canvas
+        crayonTextureImage = new Image(); //新建图片对象用于蜡笔样式
+
+    /* 设置canvas属性 */
     canvas.setAttribute('width', canvasWidth);
     canvas.setAttribute('height', canvasHeight);
-    canvas.setAttribute('id', 'canvas'); //设置画布的id、高度和宽度等属性
+    canvas.setAttribute('id', 'canvas');
+
     canvasDiv.appendChild(canvas); //为canvasDiv增加了子元素canvas
 
-    /* 设置图片路径 */
+    /* 设置蜡笔样式图片路径 */
     crayonTextureImage.src = "assets/images/crayon-texture.png";
 
     /* 解决IE浏览器不支持html5 canvas：通过excanvas.js专门为IE扩展的canvas元素包中提供的处理方法initElement进行相应的判断处理 */
@@ -31,116 +24,88 @@ $(function() {
     /* 使用canvas的绘图功能:调用canvas的上下文 */
     context = canvas.getContext("2d");
 
-    /* 清空画板时重新绘制矩形作为canvas容器 */
-    function clearCanvas() {
-        context.fillStyle = '#fff';
-        context.fillRect(0, 0, canvasWidth, canvasHeight);
-        canvas.width = canvas.width;
-    }
+    /* 绘画变量 */
+    var draw, x, y, w, h,
+        canvasArr = [],
+        type = 'pen',
+        color = '#000',
+        style = 'stroke',
+        lineWidth = '1';
 
-    /* 修改画笔颜色 */
-    $('.color-choice').on('click', 'span', function() {
-        currentColor = $(this).attr('class');
-    });
-    $('.inputColor').on('change', function() {
-        currentColor = $(this).val();
-    });
-
-    /* 设置线条粗细 */
-    $('.line-size').on('click', 'div.size', function() {
-        size = $(this).attr('data-size');
-    });
-    $('.line-width').on('change', function() {
-        size = $(this).val();
-    });
-
-    /* 设置画笔工具 */
-    $('.draw-tools').on('click', ('a:not(clearCanvas)'), function() {
-        curTool = $(this).attr('class');
-    });
-
-    /* 绘图形状 */
+    /* 绘画形状 */
     $('.line-shape').on('click', 'a', function() {
-        shape = $(this).attr('class');
+        $(this).addClass('active').siblings('.active').removeClass('active');
+        type = $(this).attr('data-use');
+        if (type === 'line' || type === 'pen') {
+            style = 'stroke';
+            $('.style .stroke').addClass('active').siblings('.fill').removeClass('active').hide();
+        } else {
+            $('.style .fill').show();
+        }
+    });
+
+    /* 描边 || 填充 */
+    $('.style').on('click', 'a', function() {
+        style = $(this).attr('data-use');
+        $(this).addClass('active').siblings().removeClass('active');
+    });
+
+    /* 线宽 */
+    $('.line-width').on('change', function() {
+        lineWidth = $(this).val();
+    });
+    $('.line-size').on('click', '.size', function() {
+        lineWidth = $(this).attr('data-size');
+    });
+
+    /* 颜色 */
+    $('.input-color').on('change', function() {
+        color = $(this).val();
+    });
+    $('.color-choice').on('click', 'span', function() {
+        color = $(this).attr('class');
+    });
+
+    /* 清空画板 */
+    $('.clearCanvas').on('click', function() {
+        canvasArr = [];
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
     })
 
-    /* 记录鼠标移动的点 */
-    function addClick(x, y, dragging) {
-        clickX.push(x);
-        clickY.push(y);
-        clickDrag.push(dragging);
-        /* 判断当前工具是否为橡皮擦 */
-        if (curTool == "eraser") {
-            clickColor.push("white");
-        } else {
-            clickColor.push(currentColor);
-        }
-        clickSize.push(size);
-    }
-
-    /* 将已记录的数据点在canvas画布中绘画出来 */
-    function redraw() {
-        /* 清空画板，然后重新把所有的点都画过 */
-        clearCanvas();
-
-        context.lineJoin = "round";
-        context.lineWidth = size;
-        for (var i = 0; i < clickX.length; i++) {
+    /* 鼠标点击事件 */
+    canvas.onmousedown = function(e) {
+        x = e.offsetX;
+        y = e.offsetY;
+        if (type == "pen") {
             context.beginPath();
-            if (clickDrag[i] && i) { //当是拖动而且i!=0时，从上一个点开始画线
-                context.moveTo(clickX[i - 1], clickY[i - 1]);
-            } else {
-                context.moveTo(clickX[i] - 1, clickY[i]);
+            context.moveTo(x, y);
+        }
+        if (type == "eraser") {
+            context.clearRect(x - 5, y - 5, 10, 10);
+        }
+
+        var draw = new Draw(context, { type: style, color: color, width: lineWidth }); //实例化构造函数
+
+        canvas.onmousemove = function(e) {
+            w = e.offsetX;
+            h = e.offsetY;
+
+
+            if (type != "eraser") {
+                context.clearRect(0, 0, canvasWidth, canvasHeight);
+                if (canvasArr.length != 0) {
+                    context.putImageData(canvasArr[canvasArr.length - 1], 0, 0, 0, 0, canvasWidth, canvasHeight);
+                }
             }
-            context.lineTo(clickX[i], clickY[i]);
-            context.closePath();
-            context.strokeStyle = clickColor[i]; //设置绘图颜色
-            context.lineWidth = clickSize[i]; //设置绘图画笔粗细
-            context.stroke();
+
+            draw[type](x, y, w, h);
         }
 
-
-        /* 判断是否为蜡笔，制作蜡笔效果 */
-        if (curTool == "crayon") {
-            /* 蜡笔效果时，对绘画的效果进行了透明度的处理，并增加蜡笔效果背景图片 */
-            context.globalAlpha = 0.4;
-            context.drawImage(crayonTextureImage, 0, 0, canvasWidth, canvasHeight);
+        canvas.onmouseup = function() {
+            //debugger
+            canvas.onmousemove = null;
+            document.onmouseup = null;
+            canvasArr.push(context.getImageData(0, 0, canvasWidth, canvasHeight));
         }
-        context.globalAlpha = 1;
     }
-
-    /* 鼠标点击或鼠标移动时标志量paint=true表示可以进行绘画 */
-    $('#canvas').mousedown(function(e) {
-        /* 绘画位置 */
-        var mouseX = e.pageX - this.offsetLeft;
-        var mouseY = e.pageY - this.offsetTop;
-
-        paint = true;
-        addClick(mouseX, mouseY, false);
-        redraw();
-    });
-    $('#canvas').mousemove(function(e) {
-        if (paint) {
-            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-            redraw();
-        }
-    });
-
-    /* 鼠标抬起或鼠标指针离开元素时绘画标志量paint=false表示绘画停止 */
-    $('#canvas').mouseup(function(e) {
-        paint = false;
-        redraw();
-    });
-    $('#canvas').mouseleave(function(e) {
-        paint = false;
-    });
-
-    /* 清空canvas画板 */
-    $('.clearCanvas').mousedown(function(e) {
-        clickX = new Array();
-        clickY = new Array();
-        clickDrag = new Array();
-        clickColor = new Array();
-        clearCanvas();
-    });
 })
