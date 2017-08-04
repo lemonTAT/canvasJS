@@ -11,6 +11,8 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
 
         /* 他是利用IE支持的VML对象来模拟Canvas的绘图的。ecxcanvas.js首先创建Canvas对象，然后把所有有关Canvas的绘图操作都用相应的VML对象来实现 */
 
+        /* VML相当于IE里面的画笔，能实现你所想要的图形，而且结合脚本，可以让图形产生动态的效果 */
+
         ①、先下载并引用excanvas.js，
         ②、在页面中定义div作为canvas容器，、
         ③、在Js中生成canvas元素：
@@ -143,6 +145,10 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
         入栈 and 出栈
     2、移动原点
         translate(x, y); 将原点移动到x、y位置
+    3、旋转
+        rotate(angle); 以原点为中心旋转canvas，angle为弧度值
+    4、缩放
+        scale(x,y); 
 
 
 

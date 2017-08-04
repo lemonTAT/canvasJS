@@ -1,7 +1,7 @@
 $(function() {
     var screenWidth = document.documentElement.clientWidth,
         screenHeight = document.documentElement.clientHeight,
-        canvasWidth = screenWidth - 40,
+        canvasWidth = 1200,
         canvasHeight = screenHeight - 200, //canvas标签的大小变量
         canvasDiv = document.getElementById('canvasDiv'), //canvas容器
         canvas = document.createElement('canvas'), //创建了元素canvas
