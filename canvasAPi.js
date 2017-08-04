@@ -6,7 +6,7 @@ function Draw(obj, setting) {
     this.color = setting.color || "#000";
     this.width = setting.width || "1";
 }
-/* 使用 prototype 属性来向对象添加属性 */
+/* 使用 prototype 属性来向对象添加属性，可继承 */
 Draw.prototype = {
     /* 初始化 */
     init: function() {

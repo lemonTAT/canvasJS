@@ -90,7 +90,7 @@ $(function() {
             w = e.offsetX;
             h = e.offsetY;
 
-
+            /* 清除canvas画布显示最后画布的状态 */
             if (type != "eraser") {
                 context.clearRect(0, 0, canvasWidth, canvasHeight);
                 if (canvasArr.length != 0) {
@@ -102,7 +102,6 @@ $(function() {
         }
 
         canvas.onmouseup = function() {
-            //debugger
             canvas.onmousemove = null;
             document.onmouseup = null;
             canvasArr.push(context.getImageData(0, 0, canvasWidth, canvasHeight));
